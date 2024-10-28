@@ -1,3 +1,3 @@
-export default function Root(props) {
-  return <section>{props.name} is mounted!</section>;
+export default function Root() {
+  return <h1>Hello World!!!</h1>;
 }
