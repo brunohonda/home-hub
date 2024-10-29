@@ -6,6 +6,12 @@ registerApplication({
   activeWhen: ["/"],
 });
 
+registerApplication({
+  name: "@home-hub/react-dashboard",
+  app: () => System.import<LifeCycles>("@home-hub/react-dashboard"),
+  activeWhen: ["/"],
+});
+
 start({
   urlRerouteOnly: true,
 });
