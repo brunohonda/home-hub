@@ -1,6 +1,8 @@
 import { AccountCircle } from "@mui/icons-material";
 import LockIcon from "@mui/icons-material/Lock";
+import LogoutIcon from "@mui/icons-material/Logout";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import WifiIcon from "@mui/icons-material/Wifi";
@@ -18,7 +20,9 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  Stack,
   Toolbar,
+  Typography,
 } from "@mui/material";
 import { useState } from "react";
 import HomeHubLogo from '../assets/logos/logo-white.png';
@@ -51,12 +55,32 @@ export default function Root() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Usuário</MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Stack>
+          <Typography>Pedro Mello</Typography>
+          <Typography variant="body2" sx={{ color: "var(--text-secondary, #00000099)" }}>pedro.mello@gmail.com</Typography>
+        </Stack>
+      </MenuItem>
       <Divider />
-      <MenuItem onClick={handleMenuClose}>Configurações</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon>
+          <SettingsIcon />
+        </ListItemIcon>
+        <ListItemText>Configurações</ListItemText>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon>
+          <PersonIcon />
+        </ListItemIcon>
+        <ListItemText>Perfil</ListItemText>
+      </MenuItem>
       <Divider />
-      <MenuItem onClick={handleMenuClose}>Sair</MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon>
+          <LogoutIcon />
+        </ListItemIcon>
+        <ListItemText>Sair</ListItemText>
+      </MenuItem>
     </Menu>
   );
 
