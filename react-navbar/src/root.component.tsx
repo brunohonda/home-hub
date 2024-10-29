@@ -1,20 +1,31 @@
 import { AccountCircle } from "@mui/icons-material";
+import LockIcon from "@mui/icons-material/Lock";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import SettingsIcon from "@mui/icons-material/Settings";
+import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
+import WifiIcon from "@mui/icons-material/Wifi";
 import {
   AppBar,
   Badge,
   Box,
   Divider,
+  Drawer,
   IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
   Menu,
   MenuItem,
   Toolbar,
-  Typography,
 } from "@mui/material";
 import { useState } from "react";
+import HomeHubLogo from '../assets/logos/logo-white.png';
 
 export default function Root() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [open, setOpen] = useState(false);
   const isMenuOpen = Boolean(anchorEl);
 
   const handleMenuClose = () => {
@@ -49,18 +60,58 @@ export default function Root() {
     </Menu>
   );
 
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
+
+  const DrawerList = (
+    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+      <List>
+        <ListItem key={'Visão geral'} disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <SpaceDashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Visão geral'} />
+          </ListItemButton>
+        </ListItem>
+        <ListItem key={'Dispositivos'} disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <WifiIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Dispositivos'} />
+          </ListItemButton>
+        </ListItem>
+        <ListItem key={'Segurança'} disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <LockIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Segurança'} />
+          </ListItemButton>
+        </ListItem>
+        <ListItem key={'Configurações'} disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <SettingsIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Configurações'} />
+          </ListItemButton>
+        </ListItem>
+      </List>
+    </Box>
+  );
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: "#9c27b0" }}>
         <Toolbar>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
+          <MenuItem
+            onClick={ toggleDrawer(true) }
           >
-            HomeHub
-          </Typography>
+            <img src={ HomeHubLogo } style={{ width: '176px' }} />
+          </MenuItem>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
@@ -86,6 +137,9 @@ export default function Root() {
         </Toolbar>
       </AppBar>
       { renderMenu }
+      <Drawer open={ open } onClose={ toggleDrawer(false) }>
+        { DrawerList }
+      </Drawer>
     </Box>
   );
 }
