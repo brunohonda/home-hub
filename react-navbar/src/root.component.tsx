@@ -1,11 +1,11 @@
 import { AccountCircle } from "@mui/icons-material";
+import HomeIcon from '@mui/icons-material/Home';
 import LockIcon from "@mui/icons-material/Lock";
 import LogoutIcon from "@mui/icons-material/Logout";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import PersonIcon from "@mui/icons-material/Person";
-import SettingsIcon from "@mui/icons-material/Settings";
-import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
-import WifiIcon from "@mui/icons-material/Wifi";
+import SecurityIcon from '@mui/icons-material/Security';
+import SettingsIcon from '@mui/icons-material/Settings';
 import {
   AppBar,
   Badge,
@@ -31,6 +31,13 @@ export default function Root() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [open, setOpen] = useState(false);
   const isMenuOpen = Boolean(anchorEl);
+
+  const menuItems = [
+    { text: 'Visão Geral', icon: <HomeIcon />, onClick: () => setDrawerOpen(false) },
+    { text: 'Dispositivos', icon: <LockIcon />, onClick: () => setDrawerOpen(false) },
+    { text: 'Segurança', icon: <SecurityIcon />, onClick: () => setDrawerOpen(false) },
+    { text: 'Configurações', icon: <SettingsIcon />, onClick: () => setDrawerOpen(false) },
+  ];
 
   const handleMenuClose = () => {
     setAnchorEl(null);
@@ -84,45 +91,27 @@ export default function Root() {
     </Menu>
   );
 
-  const toggleDrawer = (newOpen: boolean) => () => {
+  const setDrawerOpen = (newOpen: boolean) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
     setOpen(newOpen);
   };
 
   const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+    <Box sx={{ width: 250 }} role="presentation" onClick={ setDrawerOpen(false) }>
       <List>
-        <ListItem key={'Visão geral'} disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <SpaceDashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Visão geral'} />
-          </ListItemButton>
-        </ListItem>
-        <ListItem key={'Dispositivos'} disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <WifiIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Dispositivos'} />
-          </ListItemButton>
-        </ListItem>
-        <ListItem key={'Segurança'} disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <LockIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Segurança'} />
-          </ListItemButton>
-        </ListItem>
-        <ListItem key={'Configurações'} disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Configurações'} />
-          </ListItemButton>
-        </ListItem>
+        {
+          menuItems.map((item) => (
+            <ListItem key={ item.text } onClick={ item.onClick } disablePadding>
+              <ListItemButton>
+                <ListItemIcon>{ item.icon }</ListItemIcon>
+                <ListItemText primary={ item.text } />
+              </ListItemButton>
+            </ListItem>
+          ))
+        }
       </List>
     </Box>
   );
@@ -132,7 +121,8 @@ export default function Root() {
       <AppBar position="static" sx={{ backgroundColor: "#9c27b0" }}>
         <Toolbar>
           <MenuItem
-            onClick={ toggleDrawer(true) }
+            tabIndex={0}
+            onClick={ setDrawerOpen(true) }
           >
             <img src={ HomeHubLogo } style={{ width: '176px' }} />
           </MenuItem>
@@ -161,7 +151,7 @@ export default function Root() {
         </Toolbar>
       </AppBar>
       { renderMenu }
-      <Drawer open={ open } onClose={ toggleDrawer(false) }>
+      <Drawer open={ open } onClose={ setDrawerOpen(false) }>
         { DrawerList }
       </Drawer>
     </Box>
