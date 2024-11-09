@@ -17,7 +17,7 @@ const WaterCard = () => {
       <CardContent>
         <Box display={ 'flex' } flexDirection={ 'column' } alignItems={ 'center' }>
           <img src={ WaterIcon } alt="Água" style={{ width: 50, height: 50 }} />
-          <Typography color="#E65100">Water Card</Typography>
+          <Typography color="#E65100">Água</Typography>
           <PieChart
             series={[
               {
