@@ -1,3 +1,7 @@
-export default function Root(props) {
-  return <section>{props.name} is mounted!</section>;
+import LoginBox from "./components/LoginBox";
+
+export default function Root() {
+  return <div>
+    <LoginBox />
+  </div>;
 }
