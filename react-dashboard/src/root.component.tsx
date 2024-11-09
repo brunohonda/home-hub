@@ -1,5 +1,9 @@
 import { Box, Grid } from "@mui/material";
+import EnergyCard from "./components/EnergyCard";
 import HeroCard from "./components/HeroCard";
+import ResourceConsumptionCard from "./components/ResourceConsumption";
+import UsersCard from "./components/UsersCard";
+import WaterCard from "./components/WaterCard";
 
 export default function Root() {
   return (
@@ -15,6 +19,18 @@ export default function Root() {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <HeroCard />
+        </Grid>
+        <Grid item xs={4}>
+          <UsersCard />
+        </Grid>
+        <Grid item xs={4}>
+          <WaterCard />
+        </Grid>
+        <Grid item xs={4}>
+          <EnergyCard currentMonthUsage={130} lastMonthUsage={165} />
+        </Grid>
+        <Grid item xs={8}>
+          <ResourceConsumptionCard />
         </Grid>
       </Grid>
     </Box>
