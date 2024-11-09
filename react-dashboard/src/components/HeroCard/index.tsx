@@ -10,7 +10,7 @@ const HeroCard = () => {
       <CardContent>
         <Box display={ 'flex' } flexDirection={ 'row' } alignItems={ 'center' } justifyContent={ 'space-around' }>
           <Box>
-            <Typography>Olá usuário!</Typography>
+            <Typography fontSize={ 24 }>Olá usuário!</Typography>
             <Typography>Confira as informações de sua casa inteligente!</Typography>
           </Box>
           <img src={ OverviewImage } alt='Visão geral' height={ 180 } />
